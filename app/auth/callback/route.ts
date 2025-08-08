@@ -9,17 +9,18 @@ export async function GET(request: NextRequest) {
 
     console.log(`[Auth Callback] Received error: ${error}`);
 
-    let next = searchParams.get('next') || 'dashboard';
+    let next = searchParams.get('next') || '/dashboard';
     if (!next.startsWith('/')) {
-        // if "next" is not a relative URL, use the default
-        next = 'dashboard'
+        // if "next" is not a relative URL, prepend slash
+        next = `/${next}`
     }
 
     if (code) {
         const supabase = await serverClient();
         const { error } = await supabase.auth.exchangeCodeForSession(code);
-        if (error) {
-            const forwardedHost = request.headers.get('x-forwarded-host'); // original origin berfore load balancer
+        if (!error) {
+            // Login berhasil, redirect ke dashboard
+            const forwardedHost = request.headers.get('x-forwarded-host'); // original origin before load balancer
             const isLocalEnv = process.env.NODE_ENV !== 'production';
             if (isLocalEnv) {
                 // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
@@ -29,6 +30,10 @@ export async function GET(request: NextRequest) {
             } else {
                 return NextResponse.redirect(`${origin}${next}`)
             }
+        } else {
+            // Ada error saat exchange code, redirect ke signin dengan error
+            console.log(`[Auth Callback] Exchange code error: ${error.message}`);
+            return NextResponse.redirect(`${origin}/auth/signin?error=exchange_failed&message=${encodeURIComponent(error.message)}`)
         }
     }
 
