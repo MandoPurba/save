@@ -2,21 +2,23 @@
 
 import * as React from "react"
 import {
-  IconCamera,
+  IconWallet,
   IconChartBar,
   IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
+  IconCreditCard,
+  IconPigMoney,
+  IconTrendingUp,
+  IconTarget,
+  IconCalendarMonth,
   IconHelp,
-  IconInnerShadowTop,
+  IconCoins,
   IconListDetails,
   IconReport,
   IconSearch,
   IconSettings,
-  IconUsers,
+  IconReceipt,
+  IconBuildingBank,
+  Icon3dCubeSphere,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -35,117 +37,133 @@ import {
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "Roman",
+    email: "roman@fiwise.com",
+    avatar: "/avatars/user.jpg",
   },
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: IconDashboard,
     },
     {
-      title: "Lifecycle",
-      url: "#",
+      title: "Transaksi",
+      url: "/transactions",
       icon: IconListDetails,
     },
     {
-      title: "Analytics",
-      url: "#",
+      title: "Analitik",
+      url: "/analytics",
       icon: IconChartBar,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
+      title: "Budget",
+      url: "/budget",
+      icon: IconTarget,
     },
     {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
+      title: "Investasi",
+      url: "/investments",
+      icon: IconTrendingUp,
     },
   ],
   navClouds: [
     {
-      title: "Capture",
-      icon: IconCamera,
+      title: "Pengeluaran",
+      icon: IconCreditCard,
       isActive: true,
-      url: "#",
+      url: "/expenses",
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Makanan & Minuman",
+          url: "/expenses/food",
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Transportasi",
+          url: "/expenses/transport",
+        },
+        {
+          title: "Belanja",
+          url: "/expenses/shopping",
+        },
+        {
+          title: "Hiburan",
+          url: "/expenses/entertainment",
         },
       ],
     },
     {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
+      title: "Pemasukan",
+      icon: IconCoins,
+      url: "/income",
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Gaji",
+          url: "/income/salary",
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Bonus",
+          url: "/income/bonus",
+        },
+        {
+          title: "Freelance",
+          url: "/income/freelance",
+        },
+        {
+          title: "Investasi",
+          url: "/income/investment",
         },
       ],
     },
     {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
+      title: "Tabungan",
+      icon: IconPigMoney,
+      url: "/savings",
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Dana Darurat",
+          url: "/savings/emergency",
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Target Tabungan",
+          url: "/savings/goals",
         },
       ],
     },
   ],
   navSecondary: [
     {
-      title: "Settings",
-      url: "#",
+      title: "Pengaturan",
+      url: "/settings",
       icon: IconSettings,
     },
     {
-      title: "Get Help",
-      url: "#",
+      title: "Bantuan",
+      url: "/help",
       icon: IconHelp,
     },
     {
-      title: "Search",
-      url: "#",
+      title: "Cari",
+      url: "/search",
       icon: IconSearch,
     },
   ],
   documents: [
     {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
+      name: "Rekening Bank",
+      url: "/accounts",
+      icon: IconBuildingBank,
     },
     {
-      name: "Reports",
-      url: "#",
+      name: "Laporan Keuangan",
+      url: "/reports",
       icon: IconReport,
     },
     {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
+      name: "Riwayat Transaksi",
+      url: "/history",
+      icon: IconReceipt,
     },
   ],
 }
@@ -160,9 +178,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+              <a href="/dashboard">
+                <Icon3dCubeSphere className="!size-5" />
+                <span className="text-base font-semibold">Fin Wise</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

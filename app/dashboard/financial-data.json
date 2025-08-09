@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "tanggal": "2024-08-01",
+    "deskripsi": "Gaji Bulanan",
+    "kategori": "Pemasukan",
+    "subkategori": "Gaji",
+    "jumlah": 8500000,
+    "metode_pembayaran": "Transfer Bank",
+    "status": "Selesai"
+  },
+  {
+    "id": 2,
+    "tanggal": "2024-08-02",
+    "deskripsi": "Makan di Restoran",
+    "kategori": "Pengeluaran",
+    "subkategori": "Makanan & Minuman",
+    "jumlah": -125000,
+    "metode_pembayaran": "Kartu Debit",
+    "status": "Selesai"
+  },
+  {
+    "id": 3,
+    "tanggal": "2024-08-02",
+    "deskripsi": "Isi Bensin Motor",
+    "kategori": "Pengeluaran",
+    "subkategori": "Transportasi",
+    "jumlah": -50000,
+    "metode_pembayaran": "Tunai",
+    "status": "Selesai"
+  },
+  {
+    "id": 4,
+    "tanggal": "2024-08-03",
+    "deskripsi": "Freelance Web Design",
+    "kategori": "Pemasukan",
+    "subkategori": "Freelance",
+    "jumlah": 2500000,
+    "metode_pembayaran": "Transfer Bank",
+    "status": "Selesai"
+  },
+  {
+    "id": 5,
+    "tanggal": "2024-08-03",
+    "deskripsi": "Belanja Groceries",
+    "kategori": "Pengeluaran",
+    "subkategori": "Belanja Harian",
+    "jumlah": -450000,
+    "metode_pembayaran": "Kartu Kredit",
+    "status": "Selesai"
+  },
+  {
+    "id": 6,
+    "tanggal": "2024-08-04",
+    "deskripsi": "Bayar Listrik",
+    "kategori": "Pengeluaran",
+    "subkategori": "Tagihan",
+    "jumlah": -280000,
+    "metode_pembayaran": "Virtual Account",
+    "status": "Selesai"
+  },
+  {
+    "id": 7,
+    "tanggal": "2024-08-04",
+    "deskripsi": "Bayar Internet",
+    "kategori": "Pengeluaran",
+    "subkategori": "Tagihan",
+    "jumlah": -350000,
+    "metode_pembayaran": "Auto Debit",
+    "status": "Selesai"
+  },
+  {
+    "id": 8,
+    "tanggal": "2024-08-05",
+    "deskripsi": "Nonton Bioskop",
+    "kategori": "Pengeluaran",
+    "subkategori": "Hiburan",
+    "jumlah": -85000,
+    "metode_pembayaran": "E-Wallet",
+    "status": "Selesai"
+  },
+  {
+    "id": 9,
+    "tanggal": "2024-08-06",
+    "deskripsi": "Bonus Kinerja",
+    "kategori": "Pemasukan",
+    "subkategori": "Bonus",
+    "jumlah": 1500000,
+    "metode_pembayaran": "Transfer Bank",
+    "status": "Selesai"
+  },
+  {
+    "id": 10,
+    "tanggal": "2024-08-06",
+    "deskripsi": "Makan Siang",
+    "kategori": "Pengeluaran",
+    "subkategori": "Makanan & Minuman",
+    "jumlah": -45000,
+    "metode_pembayaran": "E-Wallet",
+    "status": "Selesai"
+  },
+  {
+    "id": 11,
+    "tanggal": "2024-08-07",
+    "deskripsi": "Investasi Reksadana",
+    "kategori": "Pengeluaran",
+    "subkategori": "Investasi",
+    "jumlah": -1000000,
+    "metode_pembayaran": "Transfer Bank",
+    "status": "Selesai"
+  },
+  {
+    "id": 12,
+    "tanggal": "2024-08-07",
+    "deskripsi": "Beli Baju",
+    "kategori": "Pengeluaran",
+    "subkategori": "Pakaian",
+    "jumlah": -320000,
+    "metode_pembayaran": "Kartu Kredit",
+    "status": "Selesai"
+  },
+  {
+    "id": 13,
+    "tanggal": "2024-08-08",
+    "deskripsi": "Dividen Saham",
+    "kategori": "Pemasukan",
+    "subkategori": "Investasi",
+    "jumlah": 750000,
+    "metode_pembayaran": "Transfer Bank",
+    "status": "Selesai"
+  },
+  {
+    "id": 14,
+    "tanggal": "2024-08-08",
+    "deskripsi": "Kopi & Snack",
+    "kategori": "Pengeluaran",
+    "subkategori": "Makanan & Minuman",
+    "jumlah": -35000,
+    "metode_pembayaran": "Tunai",
+    "status": "Selesai"
+  },
+  {
+    "id": 15,
+    "tanggal": "2024-08-09",
+    "deskripsi": "Bayar Gym Membership",
+    "kategori": "Pengeluaran",
+    "subkategori": "Kesehatan",
+    "jumlah": -300000,
+    "metode_pembayaran": "Auto Debit",
+    "status": "Selesai"
+  }
+]
