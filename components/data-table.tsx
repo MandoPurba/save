@@ -377,7 +377,7 @@ export function DataTable({
 
   return (
     <Tabs
-      defaultValue="outline"
+      defaultValue="transactions"
       className="w-full flex-col justify-start gap-6"
     >
       <div className="flex items-center justify-between px-4 lg:px-6">
@@ -393,22 +393,22 @@ export function DataTable({
             <SelectValue placeholder="Select a view" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="outline">Outline</SelectItem>
-            <SelectItem value="past-performance">Past Performance</SelectItem>
-            <SelectItem value="key-personnel">Key Personnel</SelectItem>
-            <SelectItem value="focus-documents">Focus Documents</SelectItem>
+            <SelectItem value="transactions">Transactions</SelectItem>
+            <SelectItem value="budget">Budget</SelectItem>
+            <SelectItem value="reports">Reports</SelectItem>
+            <SelectItem value="accounts">Accounts & Payment Methods</SelectItem>
+            <SelectItem value="documents">Documents</SelectItem>
           </SelectContent>
         </Select>
+
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
-          <TabsTrigger value="outline">Outline</TabsTrigger>
-          <TabsTrigger value="past-performance">
-            Past Performance <Badge variant="secondary">3</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="key-personnel">
-            Key Personnel <Badge variant="secondary">2</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
+          <TabsTrigger value="transactions">Transactions</TabsTrigger>
+          <TabsTrigger value="budget">Budget</TabsTrigger>
+          <TabsTrigger value="reports">Reports</TabsTrigger>
+          <TabsTrigger value="accounts">Accounts & Payment Methods</TabsTrigger>
+          <TabsTrigger value="documents">Documents</TabsTrigger>
         </TabsList>
+
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -443,14 +443,17 @@ export function DataTable({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
+
           <Button variant="outline" size="sm">
             <IconPlus />
             <span className="hidden lg:inline">Add Section</span>
           </Button>
+
         </div>
       </div>
+      
       <TabsContent
-        value="outline"
+        value="transactions"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
       >
         <div className="overflow-hidden rounded-lg border">
@@ -582,15 +585,18 @@ export function DataTable({
           </div>
         </div>
       </TabsContent>
+
       <TabsContent
         value="past-performance"
         className="flex flex-col px-4 lg:px-6"
       >
         <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
       </TabsContent>
+
       <TabsContent value="key-personnel" className="flex flex-col px-4 lg:px-6">
         <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
       </TabsContent>
+
       <TabsContent
         value="focus-documents"
         className="flex flex-col px-4 lg:px-6"

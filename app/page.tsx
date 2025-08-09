@@ -8,10 +8,5 @@ export default async function Home() {
   if (error || !data?.user) {
     redirect('/auth/signin')
   }
-  return (
-    <main>
-      <h1>Welcome to FinWise</h1>
-      <p>Your one-stop solution for financial management.</p>
-    </main>
-  );
-}
+  redirect('/dashboard')
+ }

@@ -30,44 +30,31 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 
-export const description = "Grafik interaktif pemasukan dan pengeluaran"
-
-function generateRandomChartData(startDate: string, endDate: string) {
-  const data = []
-  let current = new Date(startDate)
-  const end = new Date(endDate)
-  while (current <= end) {
-    // Random pemasukan: 100k - 10M
-    const pemasukan = Math.floor(Math.random() * (10000000 - 100000) + 100000)
-    // Random pengeluaran: 50k - 5M
-    const pengeluaran = Math.floor(Math.random() * (5000000 - 50000) + 50000)
-    data.push({
-      date: current.toISOString().slice(0, 10),
-      pemasukan,
-      pengeluaran,
-    })
-    current.setDate(current.getDate() + 1)
-  }
-  return data
-}
-
-const chartData = generateRandomChartData("2024-04-01", "2024-06-30")
+export const description = "A daily cash flow chart with interactive features"
 
 const chartConfig = {
   total: {
-    label: "Total Transaksi",
+    label: "Total",
   },
-  pemasukan: {
-    label: "Pemasukan",
+  income: {
+    label: "Income",
     color: "var(--chart-2)",
   },
-  pengeluaran: {
-    label: "Pengeluaran",
+  expenses: {
+    label: "Expenses",
     color: "var(--chart-5)",
   },
 } satisfies ChartConfig
 
-export function ChartAreaInteractive() {
+export interface ChartAreaInteractiveProps {
+  data: Array<{
+    date: string
+    income: number
+    expenses: number
+  }>
+}
+
+export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
   const isMobile = useIsMobile()
   const [timeRange, setTimeRange] = React.useState("90d")
 
@@ -77,7 +64,7 @@ export function ChartAreaInteractive() {
     }
   }, [isMobile])
 
-  const filteredData = chartData.filter((item) => {
+  const filteredData = data.filter((item) => {
     const date = new Date(item.date)
     const referenceDate = new Date("2024-06-30")
     let daysToSubtract = 90
@@ -94,12 +81,12 @@ export function ChartAreaInteractive() {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Arus Kas Harian</CardTitle>
+        <CardTitle>Daily Cash Flow</CardTitle>
         <CardDescription>
           <span className="hidden @[540px]/card:block">
-            Pemasukan dan pengeluaran 3 bulan terakhir
+            Income and expenses for the last 3 months
           </span>
-          <span className="@[540px]/card:hidden">3 bulan terakhir</span>
+          <span className="@[540px]/card:hidden">Last 3 months</span>
         </CardDescription>
         <CardAction>
           <ToggleGroup
@@ -109,9 +96,9 @@ export function ChartAreaInteractive() {
             variant="outline"
             className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
           >
-            <ToggleGroupItem value="90d">3 bulan terakhir</ToggleGroupItem>
-            <ToggleGroupItem value="30d">30 hari terakhir</ToggleGroupItem>
-            <ToggleGroupItem value="7d">7 hari terakhir</ToggleGroupItem>
+            <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
+            <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
+            <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
           </ToggleGroup>
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger
@@ -119,17 +106,17 @@ export function ChartAreaInteractive() {
               size="sm"
               aria-label="Select a value"
             >
-              <SelectValue placeholder="3 bulan terakhir" />
+              <SelectValue placeholder="Last 3 months" />
             </SelectTrigger>
             <SelectContent className="rounded-xl">
               <SelectItem value="90d" className="rounded-lg">
-                3 bulan terakhir
+                Last 3 months
               </SelectItem>
               <SelectItem value="30d" className="rounded-lg">
-                30 hari terakhir
+                Last 30 days
               </SelectItem>
               <SelectItem value="7d" className="rounded-lg">
-                7 hari terakhir
+                Last 7 days
               </SelectItem>
             </SelectContent>
           </Select>
@@ -142,27 +129,27 @@ export function ChartAreaInteractive() {
         >
           <AreaChart data={filteredData}>
             <defs>
-              <linearGradient id="fillPemasukan" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-pemasukan)"
+                  stopColor="var(--color-income)"
                   stopOpacity={1.0}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-pemasukan)"
+                  stopColor="var(--color-income)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
-              <linearGradient id="fillPengeluaran" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillExpenses" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-pengeluaran)"
+                  stopColor="var(--color-expenses)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-pengeluaran)"
+                  stopColor="var(--color-expenses)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -176,7 +163,7 @@ export function ChartAreaInteractive() {
               minTickGap={32}
               tickFormatter={(value) => {
                 const date = new Date(value)
-                return date.toLocaleDateString("id-ID", {
+                return date.toLocaleDateString("en-US", {
                   month: "short",
                   day: "numeric",
                 })
@@ -187,7 +174,7 @@ export function ChartAreaInteractive() {
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("id-ID", {
+                    return new Date(value).toLocaleDateString("en-US", {
                       month: "long",
                       day: "numeric",
                       year: "numeric",
@@ -195,7 +182,7 @@ export function ChartAreaInteractive() {
                   }}
                   indicator="dot"
                   formatter={(value, name) => [
-                    new Intl.NumberFormat('id-ID', {
+                    new Intl.NumberFormat('en-US', {
                       style: 'currency',
                       currency: 'IDR',
                       minimumFractionDigits: 0,
@@ -206,17 +193,17 @@ export function ChartAreaInteractive() {
               }
             />
             <Area
-              dataKey="pengeluaran"
+              dataKey="expenses"
               type="natural"
-              fill="url(#fillPengeluaran)"
-              stroke="var(--color-pengeluaran)"
+              fill="url(#fillExpenses)"
+              stroke="var(--color-expenses)"
               stackId="a"
             />
             <Area
-              dataKey="pemasukan"
+              dataKey="income"
               type="natural"
-              fill="url(#fillPemasukan)"
-              stroke="var(--color-pemasukan)"
+              fill="url(#fillIncome)"
+              stroke="var(--color-income)"
               stackId="a"
             />
           </AreaChart>
