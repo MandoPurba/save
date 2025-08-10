@@ -20,9 +20,16 @@ export class AuthService {
     }
 
     static async signOut() {
-        const supabase = client();
-        const { error } = await supabase.auth.signOut();
-        if (error) throw error;
+            const supabase = client();
+            // Sign out on client to clear local session
+            const { error } = await supabase.auth.signOut();
+            if (error) console.warn("Client signOut warning:", error.message)
+            // Also hit server route to clear cookies on server side
+            try {
+                await fetch("/auth/signout", { method: "POST" })
+            } catch (e) {
+                console.warn("Server signOut request failed", e)
+            }
     }
 
     static async getCurrentUser() {

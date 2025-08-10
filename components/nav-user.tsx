@@ -1,5 +1,6 @@
 "use client"
 
+import { usePathname, useRouter } from "next/navigation"
 import {
   IconCreditCard,
   IconDotsVertical,
@@ -28,6 +29,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { getInitials } from "@/utils/get-initials"
+import { AuthService } from "@/lib/supabase/services/auth"
 
 export function NavUser({
   user,
@@ -39,6 +42,15 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleSignOut = async () => {
+  // Sign out and let middleware handle redirect based on cleared cookies
+  await AuthService.signOut()
+  // Trigger a navigation to the current path so middleware runs on a fresh request
+  router.replace(pathname)
+  }
 
   return (
     <SidebarMenu>
@@ -51,7 +63,9 @@ export function NavUser({
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {getInitials(user.name)}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -72,7 +86,7 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
@@ -98,7 +112,10 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={handleSignOut}
+              className="!cursor-pointer"
+            >
               <IconLogout />
               Log out
             </DropdownMenuItem>
