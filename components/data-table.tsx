@@ -87,6 +87,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { ChartRadialText } from "./ui/chart-radial-text"
 
 export const schema = z.object({
   id: z.number(),
@@ -304,7 +305,6 @@ export function DataTable({
             <SelectItem value="budget">Budget</SelectItem>
             <SelectItem value="reports">Reports</SelectItem>
             <SelectItem value="accounts">Accounts & Payment Methods</SelectItem>
-            <SelectItem value="documents">Documents</SelectItem>
           </SelectContent>
         </Select>
 
@@ -313,50 +313,7 @@ export function DataTable({
           <TabsTrigger value="budget">Budget</TabsTrigger>
           <TabsTrigger value="reports">Reports</TabsTrigger>
           <TabsTrigger value="accounts">Accounts & Payment Methods</TabsTrigger>
-          <TabsTrigger value="documents">Documents</TabsTrigger>
         </TabsList>
-
-        <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                <IconLayoutColumns />
-                <span className="hidden lg:inline">Customize Columns</span>
-                <span className="lg:hidden">Columns</span>
-                <IconChevronDown />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              {table
-                .getAllColumns()
-                .filter(
-                  (column) =>
-                    typeof column.accessorFn !== "undefined" &&
-                    column.getCanHide()
-                )
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Button variant="outline" size="sm">
-            <IconPlus />
-            <span className="hidden lg:inline">Add Section</span>
-          </Button>
-
-        </div>
 
       </div>
       
@@ -485,21 +442,27 @@ export function DataTable({
       </TabsContent>
 
       <TabsContent
-        value="past-performance"
+        value="budget"
         className="flex flex-col px-4 lg:px-6"
       >
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
+        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed flex flex-row gap-4">
+          <ChartRadialText />
+          
+          <ChartRadialText />
+        </div>
       </TabsContent>
 
-      <TabsContent value="key-personnel" className="flex flex-col px-4 lg:px-6">
+      <TabsContent value="reports" className="flex flex-col px-4 lg:px-6">
         <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
       </TabsContent>
 
       <TabsContent
-        value="focus-documents"
+        value="accounts"
         className="flex flex-col px-4 lg:px-6"
       >
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
+        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed">
+          hello world
+        </div>
       </TabsContent>
     </Tabs>
   )
