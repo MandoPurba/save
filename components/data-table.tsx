@@ -257,6 +257,8 @@ export function DataTable({
     pageIndex: 0,
     pageSize: 10,
   })
+  // Shared state to sync Tabs and Select view
+  const [activeView, setActiveView] = React.useState<string>("transactions")
   // DnD sensors and ids removed
 
   const table = useReactTable({
@@ -285,14 +287,16 @@ export function DataTable({
 
   return (
     <Tabs
-      defaultValue="transactions"
+      value={activeView}
+      onValueChange={setActiveView}
       className="w-full flex-col justify-start gap-6"
     >
       <div className="flex items-center justify-between px-4 lg:px-6">
         <Label htmlFor="view-selector" className="sr-only">
           View
         </Label>
-        <Select defaultValue="outline">
+
+        <Select value={activeView} onValueChange={setActiveView}>
           <SelectTrigger
             className="flex w-fit @4xl/main:hidden"
             size="sm"
@@ -300,12 +304,14 @@ export function DataTable({
           >
             <SelectValue placeholder="Select a view" />
           </SelectTrigger>
+
           <SelectContent>
             <SelectItem value="transactions">Transactions</SelectItem>
             <SelectItem value="budget">Budget</SelectItem>
             <SelectItem value="reports">Reports</SelectItem>
             <SelectItem value="accounts">Accounts & Payment Methods</SelectItem>
           </SelectContent>
+
         </Select>
 
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
@@ -445,11 +451,12 @@ export function DataTable({
         value="budget"
         className="flex flex-col px-4 lg:px-6"
       >
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed flex flex-row gap-4">
-          <ChartRadialText />
-          
-          <ChartRadialText />
+        <div className="grid w-full gap-4 items-stretch grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {[...Array(8)].map((_, i) => (
+            <ChartRadialText key={i} className="h-full" />
+          ))}
         </div>
+
       </TabsContent>
 
       <TabsContent value="reports" className="flex flex-col px-4 lg:px-6">

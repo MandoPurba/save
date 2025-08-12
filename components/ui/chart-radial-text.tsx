@@ -21,27 +21,42 @@ import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 
 export const description = "A radial chart with text"
 
-const chartData = [
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+// chartData will be built dynamically from percent
+const makeChartData = (percent: number) => [
+  { browser: "safari", visitors: percent, fill: "var(--color-safari)" },
 ]
 
-const chartConfig = {
+// Build chart config dynamically so the color follows percent threshold
+const makeChartConfig = (colorVar: string) => ({
   visitors: {
-    label: "Visitors",
+    label: "Progress",
   },
   safari: {
-    label: "Safari",
-    color: "var(--chart-2)",
+    label: "Budget",
+    color: `var(${colorVar})`,
   },
-} satisfies ChartConfig
+}) satisfies ChartConfig
 
-export function ChartRadialText() {
+export function ChartRadialText({
+  className,
+  title = "Budget",
+  percent = 80,
+}: {
+  className?: string
+  title?: string
+  percent?: number
+}) {
+  // Clamp percent to keep chart sane
+  const pct = Number.isFinite(percent) ? Math.max(0, percent) : 0
+  const colorVar = pct > 100 ? "--chart-5" : "--chart-2"
+  const chartConfig = makeChartConfig(colorVar)
+  const chartData = makeChartData(pct)
   return (
-    <Card className="flex flex-col">
+  <Card className={["flex flex-col", className].filter(Boolean).join(" ") }>
       <CardHeader className="items-center pb-0">
-        <CardTitle>Radial Chart - Text</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
+      
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
@@ -78,14 +93,7 @@ export function ChartRadialText() {
                           y={viewBox.cy}
                           className="fill-foreground text-4xl font-bold"
                         >
-                          {chartData[0].visitors.toLocaleString()}
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
-                        >
-                          Visitors
+                          {`${chartData[0].visitors.toLocaleString()}%`}
                         </tspan>
                       </text>
                     )
@@ -96,14 +104,6 @@ export function ChartRadialText() {
           </RadialBarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
     </Card>
   )
 }
